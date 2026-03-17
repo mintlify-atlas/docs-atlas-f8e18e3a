@@ -1,0 +1,98 @@
+{
+  "projectType": "sdk-library",
+  "projectName": "JS Beautify",
+  "projectDescription": "A code beautifier for JavaScript, CSS, and HTML available as an npm package, Python library, CLI tool, and web library.",
+  "theme": "mint",
+  "primaryColor": "#fbc826",
+  "lightColor": "#04c754",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "usage/node-library",
+              "usage/cli",
+              "usage/python",
+              "usage/web-browser"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/options",
+              "configuration/jsbeautifyrc",
+              "configuration/editorconfig",
+              "configuration/language-overrides"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/javascript-beautifier",
+              "guides/css-beautifier",
+              "guides/html-beautifier",
+              "guides/directives"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/js-options",
+              "reference/css-options",
+              "reference/html-options"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "contributing/overview",
+              "contributing/changelog"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "JavaScript beautification with support for ES6+, JSX, and TypeScript",
+    "CSS beautification with selector and rule formatting",
+    "HTML beautification with attribute wrapping and inline element control",
+    "CLI tools: js-beautify, css-beautify, html-beautify",
+    "Node.js library with CommonJS and ESM support",
+    "Python library (jsbeautifier, cssbeautifier) on PyPI",
+    "Web library available via CDN (cdnjs)",
+    "EditorConfig support for consistent formatting across editors",
+    ".jsbeautifyrc config file support with language-specific overrides",
+    "In-source directives for ignore and preserve regions",
+    "Unpacker support for scripts packed by Dean Edward's packer",
+    "Templating language support (Django, ERB, Handlebars, PHP, Smarty, Angular)"
+  ],
+  "publicApiSurface": [
+    "beautify(src, options) — default JS beautify (Node.js)",
+    "beautify.js(src, options) — JavaScript beautifier",
+    "beautify.css(src, options) — CSS beautifier",
+    "beautify.html(src, options) — HTML beautifier",
+    "js_beautify(src, options) — legacy alias",
+    "css_beautify(src, options) — legacy alias",
+    "html_beautify(src, options) — legacy alias",
+    "jsbeautifier.beautify(src) — Python API",
+    "jsbeautifier.beautify_file(path) — Python file API",
+    "jsbeautifier.default_options() — Python options",
+    "cssbeautifier.beautify(src) — Python CSS API",
+    "js-beautify CLI — js-beautify [options] <file>",
+    "css-beautify CLI — css-beautify [options] <file>",
+    "html-beautify CLI — html-beautify [options] <file>"
+  ]
+}
