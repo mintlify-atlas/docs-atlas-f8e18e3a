@@ -1,0 +1,93 @@
+---
+title: "Language overrides"
+description: "Apply different settings to JavaScript, CSS, and HTML using a shared config."
+---
+
+You can scope options to a specific language using a shallow settings tree. Top-level settings are inherited by all languages, and language-specific keys override them for that language only.
+
+This works when you pass options directly to the API in both JavaScript and Python. In the JavaScript implementation, it also works in config files such as `.jsbeautifyrc`.
+
+## Settings tree structure
+
+The supported top-level language keys are `js`, `css`, and `html`. Inside `html`, you can further nest `js` and `css` keys to target embedded scripts and styles:
+
+```json
+{
+    "indent_size": 4,
+    "html": {
+        "end_with_newline": true,
+        "js": {
+            "indent_size": 2
+        },
+        "css": {
+            "indent_size": 2
+        }
+    },
+    "css": {
+        "indent_size": 1
+    },
+    "js": {
+        "preserve-newlines": true
+    }
+}
+```
+
+## What this configuration produces
+
+Using the example above:
+
+- **HTML files** — inherit `indent_size: 4` from the top-level setting and end with a newline.
+- **JavaScript and CSS inside HTML** — inherit the `end_with_newline` setting from the `html` block, and override their indentation to `indent_size: 2`.
+- **CSS files** — override the top-level setting to `indent_size: 1`.
+- **JavaScript files** — inherit `indent_size: 4` from the top-level setting, and set `preserve-newlines: true`.
+
+<Note>
+Inheritance is shallow, not deep. Child blocks override individual keys; they do not deep-merge objects.
+</Note>
+
+## Using language overrides in .jsbeautifyrc
+
+You can include the full settings tree in your `.jsbeautifyrc` file. The JavaScript CLI applies language-specific overrides based on the file extension being beautified:
+
+```json
+{
+    "indent_size": 4,
+    "html": {
+        "end_with_newline": true,
+        "js": { "indent_size": 2 },
+        "css": { "indent_size": 2 }
+    },
+    "css": { "indent_size": 1 },
+    "js": { "preserve-newlines": true }
+}
+```
+
+## Using language overrides in the API
+
+Pass the same structure as the options object. The beautifier function accepts whichever language block corresponds to the call you make:
+
+```js
+var beautify_js = require('js-beautify').js;
+var beautify_css = require('js-beautify').css;
+var beautify_html = require('js-beautify').html;
+
+var sharedOptions = {
+    indent_size: 4,
+    html: {
+        end_with_newline: true,
+        js: { indent_size: 2 },
+        css: { indent_size: 2 }
+    },
+    css: { indent_size: 1 },
+    js: { preserve_newlines: true }
+};
+
+// Each call automatically picks up its language block
+beautify_js(jsCode, sharedOptions);    // uses js block
+beautify_css(cssCode, sharedOptions);  // uses css block
+beautify_html(htmlCode, sharedOptions); // uses html block
+```
+
+<Tip>
+Using a shared options object is useful when you call multiple beautifiers from the same script and want consistent settings with per-language overrides.
+</Tip>

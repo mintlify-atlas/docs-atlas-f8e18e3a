@@ -1,0 +1,106 @@
+---
+title: "Node.js library"
+description: "Use js-beautify as a Node.js library in CommonJS or ESM projects."
+---
+
+## Installation
+
+Install `js-beautify` locally in your project:
+
+```bash
+npm install js-beautify
+```
+
+## Importing the library
+
+<CodeGroup>
+
+```js CommonJS
+// Default export is the JS beautifier
+var beautify_js = require('js-beautify');
+
+// CSS and HTML are available as named exports
+var beautify_css = require('js-beautify').css;
+var beautify_html = require('js-beautify').html;
+```
+
+```js ESM
+// 'beautify' can be any name here.
+import beautify from 'js-beautify';
+
+beautify.js(data, options);
+beautify.html(data, options);
+beautify.css(data, options);
+```
+
+</CodeGroup>
+
+## Available method aliases
+
+All of the following refer to the same underlying functions:
+
+| Alias | Type |
+|---|---|
+| `require('js-beautify')` | JavaScript beautifier (default export) |
+| `require('js-beautify').js` | JavaScript beautifier |
+| `require('js-beautify').js_beautify` | JavaScript beautifier (legacy alias) |
+| `require('js-beautify').css` | CSS beautifier |
+| `require('js-beautify').css_beautify` | CSS beautifier (legacy alias) |
+| `require('js-beautify').html` | HTML beautifier |
+| `require('js-beautify').html_beautify` | HTML beautifier (legacy alias) |
+
+## Method signature
+
+All three beautifiers share the same signature:
+
+```js
+beautify(code, options)
+```
+
+- **`code`** — the string of source code to beautify.
+- **`options`** — an object containing the settings to apply. All options are optional; omitting them uses the defaults.
+
+## Basic example
+
+The following example reads a JavaScript file from disk and prints the beautified result to stdout:
+
+```js
+var beautify = require('js-beautify/js').js,
+    fs = require('fs');
+
+fs.readFile('foo.js', 'utf8', function (err, data) {
+    if (err) {
+        throw err;
+    }
+    console.log(beautify(data, { indent_size: 2, space_in_empty_paren: true }));
+});
+```
+
+## Passing options
+
+Options are passed as a plain object. The option names match the CLI flag names, but with **underscores instead of dashes**.
+
+```js
+// CLI: --indent-size 2 --space-in-empty-paren
+const options = { indent_size: 2, space_in_empty_paren: true };
+
+var beautify = require('js-beautify');
+console.log(beautify('var x={a:1}', options));
+```
+
+<Note>
+The configuration option names are the same as the CLI flag names but with underscores instead of dashes. For example, `--indent-size` becomes `indent_size`, and `--space-in-empty-paren` becomes `space_in_empty_paren`.
+</Note>
+
+## CSS and HTML
+
+The CSS and HTML beautifiers are accessed as named exports and accept the same `(code, options)` signature:
+
+```js
+var beautify_css = require('js-beautify').css;
+var beautify_html = require('js-beautify').html;
+
+// All methods accept two arguments: the string to beautify and an options object.
+var prettyCSS = beautify_css('a{color:red}', { indent_size: 2 });
+var prettyHTML = beautify_html('<div><p>hello</p></div>', { indent_size: 2 });
+```

@@ -1,97 +1,90 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "JS Beautify"
+description: "Beautifier for JavaScript, CSS, and HTML. Format and re-indent your code with a single command."
 ---
 
-## Setting up
-
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install via npm, pip, or load from CDN in seconds.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Beautify your first file in under a minute.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Node.js Library" icon="node-js" href="/usage/node-library">
+    Use js-beautify programmatically in your Node.js project.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="CLI Reference" icon="terminal" href="/usage/cli">
+    Run js-beautify, css-beautify, or html-beautify from the command line.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## What is JS Beautify?
 
-Everything you need to create world-class documentation.
+JS Beautify reformats and re-indents JavaScript, CSS, and HTML. It unpacks scripts packed by Dean Edward's popular packer, and partially deobfuscates scripts processed by `javascript-obfuscator`.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+It is available as:
 
-## Need inspiration?
+- **npm package** (`js-beautify`) — Node.js library and CLI
+- **Python packages** (`jsbeautifier`, `cssbeautifier`) — library and CLI
+- **Web library** — embed directly in any HTML page via CDN
+- **Online tool** — use it instantly at [beautifier.io](https://beautifier.io/)
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+## Supported languages
+
+<CardGroup cols={3}>
+  <Card title="JavaScript" icon="js" href="/guides/javascript-beautifier">
+    Full ES6+ support, JSX, JSON, and packed script unpacking.
+  </Card>
+  <Card title="CSS" icon="css3" href="/guides/css-beautifier">
+    CSS, SCSS, and Less formatting with selector and rule control.
+  </Card>
+  <Card title="HTML" icon="html5" href="/guides/html-beautifier">
+    HTML formatting with templating language support.
+  </Card>
+</CardGroup>
+
+## Key features
+
+- Re-indent and reformat minified or ugly code
+- Unpack scripts packed by Dean Edward's packer
+- Partial deobfuscation of `javascript-obfuscator` output
+- Language-specific configuration overrides
+- EditorConfig integration
+- In-source `/* beautify ignore:start */` and `/* beautify preserve:start */` directives
+- Templating language support: Django, ERB, Handlebars, PHP, Smarty, Angular
+
+## Quick example
+
+<CodeGroup>
+
+```bash npm (global CLI)
+npm install -g js-beautify
+js-beautify foo.js
+```
+
+```bash Python
+pip install jsbeautifier
+js-beautify file.js
+```
+
+</CodeGroup>
+
+```js Node.js library
+import beautify from 'js-beautify';
+
+const ugly = 'function foo(){return 42;}';
+
+console.log(beautify.js(ugly, { indent_size: 2 }));
+// function foo() {
+//   return 42;
+// }
+
+console.log(beautify.css('a{color:red;}', { indent_size: 2 }));
+// a {
+//   color: red;
+// }
+```
+
+<Note>
+  Try it live at [beautifier.io](https://beautifier.io/) — no installation required.
+</Note>

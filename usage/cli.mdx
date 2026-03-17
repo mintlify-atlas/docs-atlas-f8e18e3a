@@ -1,0 +1,196 @@
+---
+title: "CLI usage"
+description: "Use the js-beautify, css-beautify, and html-beautify command-line tools."
+---
+
+## Installation
+
+Install `js-beautify` globally to make the CLI tools available on your `PATH`:
+
+```bash
+npm -g install js-beautify
+```
+
+This provides three executables: `js-beautify`, `css-beautify`, and `html-beautify`.
+
+## Common use cases
+
+**Beautify a file to stdout**
+
+```bash
+js-beautify foo.js
+```
+
+**Write in-place, replacing the original file**
+
+```bash
+js-beautify --replace foo.js
+```
+
+**Read from stdin**
+
+```bash
+echo 'var x={a:1}' | js-beautify -f -
+```
+
+**Write output to a different file**
+
+```bash
+js-beautify -o foo.pretty.js foo.js
+```
+
+**Use a config file**
+
+```bash
+js-beautify --config .jsbeautifyrc foo.js
+```
+
+## CLI options
+
+<Tabs>
+  <Tab title="js-beautify">
+
+### CLI options
+
+```text
+-f, --file       Input file(s) (Pass '-' for stdin)
+-r, --replace    Write output in-place, replacing input
+-o, --outfile    Write output to file (default stdout)
+--config         Path to config file
+--type           [js|css|html] Select beautifier type
+-q, --quiet      Suppress logging to stdout
+-h, --help       Show this help
+-v, --version    Show the version
+```
+
+### Beautifier options
+
+```text
+-s, --indent-size                 Indentation size [4]
+-c, --indent-char                 Indentation character [" "]
+-t, --indent-with-tabs            Indent with tabs, overrides -s and -c
+-e, --eol                         Character(s) to use as line terminators.
+                                  [first newline in file, otherwise "\n"]
+-n, --end-with-newline            End output with newline
+--editorconfig                    Use EditorConfig to set up the options
+-l, --indent-level                Initial indentation level [0]
+-p, --preserve-newlines           Preserve line-breaks (--no-preserve-newlines disables)
+-m, --max-preserve-newlines       Number of line-breaks to be preserved in one chunk [10]
+-P, --space-in-paren              Add padding spaces within paren, ie. f( a, b )
+-E, --space-in-empty-paren        Add a single space inside empty paren, ie. f( )
+-j, --jslint-happy                Enable jslint-stricter mode
+-a, --space-after-anon-function   Add a space before an anonymous function's parens, ie. function ()
+--space-after-named-function      Add a space before a named function's parens, i.e. function example ()
+-b, --brace-style                 [collapse|expand|end-expand|none][,preserve-inline] [collapse,preserve-inline]
+-u, --unindent-chained-methods    Don't indent chained method calls
+-B, --break-chained-methods       Break chained method calls across subsequent lines
+-k, --keep-array-indentation      Preserve array indentation
+-x, --unescape-strings            Decode printable characters encoded in xNN notation
+-w, --wrap-line-length            Wrap lines that exceed N characters [0]
+-X, --e4x                         Pass E4X xml literals through untouched
+--good-stuff                      Warm the cockles of Crockford's heart
+-C, --comma-first                 Put commas at the beginning of new line instead of end
+-O, --operator-position           Set operator position (before-newline|after-newline|preserve-newline) [before-newline]
+--indent-empty-lines              Keep indentation on empty lines
+--templating                      List of templating languages (auto,django,erb,handlebars,php,smarty,angular) ["auto"]
+```
+
+  </Tab>
+  <Tab title="css-beautify">
+
+### CLI options
+
+```text
+-f, --file       Input file(s) (Pass '-' for stdin)
+-r, --replace    Write output in-place, replacing input
+-o, --outfile    Write output to file (default stdout)
+--config         Path to config file
+--type           [js|css|html] Select beautifier type
+-q, --quiet      Suppress logging to stdout
+-h, --help       Show this help
+-v, --version    Show the version
+```
+
+### Beautifier options
+
+```text
+-s, --indent-size                  Indentation size [4]
+-c, --indent-char                  Indentation character [" "]
+-t, --indent-with-tabs             Indent with tabs, overrides -s and -c
+-e, --eol                          Character(s) to use as line terminators. (default newline - "\n")
+-n, --end-with-newline             End output with newline
+-b, --brace-style                  [collapse|expand] ["collapse"]
+-L, --selector-separator-newline   Add a newline between multiple selectors
+-N, --newline-between-rules        Add a newline between CSS rules
+--indent-empty-lines               Keep indentation on empty lines
+```
+
+  </Tab>
+  <Tab title="html-beautify">
+
+### CLI options
+
+```text
+-f, --file       Input file(s) (Pass '-' for stdin)
+-r, --replace    Write output in-place, replacing input
+-o, --outfile    Write output to file (default stdout)
+--config         Path to config file
+--type           [js|css|html] Select beautifier type
+-q, --quiet      Suppress logging to stdout
+-h, --help       Show this help
+-v, --version    Show the version
+```
+
+### Beautifier options
+
+```text
+-s, --indent-size                  Indentation size [4]
+-c, --indent-char                  Indentation character [" "]
+-t, --indent-with-tabs             Indent with tabs, overrides -s and -c
+-e, --eol                          Character(s) to use as line terminators. (default newline - "\n")
+-n, --end-with-newline             End output with newline
+-p, --preserve-newlines            Preserve existing line-breaks (--no-preserve-newlines disables)
+-m, --max-preserve-newlines        Maximum number of line-breaks to be preserved in one chunk [10]
+-I, --indent-inner-html            Indent <head> and <body> sections. Default is false.
+-b, --brace-style                  [collapse-preserve-inline|collapse|expand|end-expand|none] ["collapse"]
+-S, --indent-scripts               [keep|separate|normal] ["normal"]
+-w, --wrap-line-length             Maximum characters per line (0 disables) [250]
+-A, --wrap-attributes              Wrap attributes to new lines [auto|force|force-aligned|force-expand-multiline|aligned-multiple|preserve|preserve-aligned] ["auto"]
+-M, --wrap-attributes-min-attrs    Minimum number of html tag attributes for force wrap attribute options [2]
+-i, --wrap-attributes-indent-size  Indent wrapped attributes to after N characters [indent-size]
+-d, --inline                       List of tags to be considered inline tags
+--inline_custom_elements           Inline custom elements [true]
+-U, --unformatted                  List of tags (defaults to inline) that should not be reformatted
+-T, --content_unformatted          List of tags (defaults to pre) whose content should not be reformatted
+-E, --extra_liners                 List of tags (defaults to [head,body,/html]) that should have an extra newline before them.
+--editorconfig                     Use EditorConfig to set up the options
+--unformatted_content_delimiter    Keep text content together between this string [""]
+--indent-empty-lines               Keep indentation on empty lines
+--templating                       List of templating languages (auto,none,django,erb,handlebars,php,smarty,angular) ["auto"]
+```
+
+  </Tab>
+</Tabs>
+
+## CSS and HTML as an alternative invocation
+
+You can also invoke the CSS and HTML beautifiers through `js-beautify` by passing a `--type` flag:
+
+```bash
+js-beautify --css styles.css
+js-beautify --html index.html
+```
+
+<Tip>
+The `--type` flag selects which beautifier runs — it does **not** filter which files are processed. Use `css-beautify` or `html-beautify` directly for clarity.
+</Tip>
+
+## Loading settings from environment or config file
+
+In addition to CLI arguments, you can provide configuration through:
+
+- Any `jsbeautify_`-prefixed environment variable
+- A JSON-formatted file passed via `--config`
+- A `.jsbeautifyrc` file containing JSON at any level of the filesystem above `$PWD`
+
+Configuration sources earlier in this list take precedence over later ones.

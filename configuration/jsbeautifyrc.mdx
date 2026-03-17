@@ -1,0 +1,95 @@
+---
+title: ".jsbeautifyrc"
+description: "Configure js-beautify using a .jsbeautifyrc file."
+---
+
+<Note>
+`.jsbeautifyrc` loading is a JavaScript-only feature. The Python implementation does not support it.
+</Note>
+
+A `.jsbeautifyrc` file is a JSON file that lets you store project-level formatting settings alongside your source code. The `js-beautify` CLI searches for it automatically.
+
+## How it is found
+
+When you run the CLI, js-beautify searches for a `.jsbeautifyrc` file starting from the current working directory (`$PWD`) and walks up through each parent directory until it finds one or reaches the filesystem root. The first file found is used.
+
+This means you can place a `.jsbeautifyrc` at the root of a project and all subdirectories will pick it up automatically.
+
+## Configuration priority
+
+Settings are resolved from multiple sources. Sources listed earlier take precedence over sources listed later:
+
+1. CLI arguments (e.g. `--indent-size 2`)
+2. Environment variables with the `jsbeautify_` prefix
+3. The file specified by `--config`
+4. A `.jsbeautifyrc` file found by searching upward from `$PWD`
+
+## Specifying an explicit config file
+
+Use the `--config` flag to point to any JSON config file, bypassing the automatic search:
+
+```bash
+js-beautify --config path/to/my-config.json foo.js
+```
+
+## Environment variables
+
+You can set any option as an environment variable by prefixing it with `jsbeautify_` (case-insensitive):
+
+```bash
+export JSBEAUTIFY_INDENT_SIZE=2
+export JSBEAUTIFY_INDENT_WITH_TABS=false
+js-beautify foo.js
+```
+
+Environment variable names map directly to option names with the prefix stripped.
+
+## File format
+
+The `.jsbeautifyrc` file must contain valid JSON. Option names may use either underscores or dashes — they are normalized internally.
+
+```json
+{
+    "indent_size": 2,
+    "indent_char": " ",
+    "end_with_newline": true,
+    "preserve_newlines": true,
+    "max_preserve_newlines": 5,
+    "brace_style": "collapse,preserve-inline"
+}
+```
+
+<Tip>
+You can also include [language-specific overrides](/configuration/language-overrides) directly in your `.jsbeautifyrc` using the `js`, `css`, and `html` keys.
+</Tip>
+
+## Real-world example
+
+The following is the actual `.jsbeautifyrc` used by the js-beautify project itself:
+
+```json
+{
+    "indent_size": 2,
+    "indent_char": " ",
+    "indent_level": 0,
+    "end-with-newline": true,
+    "indent_with_tabs": false,
+    "preserve_newlines": true,
+    "max_preserve_newlines": 10,
+    "jslint_happy": false,
+    "space_after_anon_function": false,
+    "brace_style": "collapse,preserve-inline",
+    "keep_array_indentation": false,
+    "keep_function_indentation": false,
+    "space_before_conditional": true,
+    "break_chained_methods": false,
+    "eval_code": false,
+    "unescape_strings": false,
+    "wrap_line_length": 0,
+    "css": {
+        "selector_separator_newline": false
+    }
+}
+```
+
+Notice that it mixes underscore and dash key formats (`end-with-newline` and `indent_size`) — both are accepted. It also includes a `css` block that overrides a CSS-specific option without affecting JavaScript formatting.

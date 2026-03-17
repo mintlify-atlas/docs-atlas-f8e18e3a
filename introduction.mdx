@@ -1,0 +1,37 @@
+---
+title: "Introduction"
+description: "JS Beautify is a code beautifier for JavaScript, CSS, and HTML."
+---
+
+JS Beautify reformats and re-indents JavaScript, CSS, and HTML source code. It can unpack scripts packed by Dean Edward's popular packer, and partly deobfuscate scripts processed by [javascript-obfuscator](https://github.com/javascript-obfuscator/javascript-obfuscator).
+
+You can try it immediately in your browser at [beautifier.io](https://beautifier.io/), where all options are available through the UI.
+
+## Supported languages
+
+| Language   | Node.js | CLI | Python | Web browser |
+| ---------- | ------- | --- | ------ | ----------- |
+| JavaScript | Yes     | Yes | Yes    | Yes         |
+| CSS        | Yes     | Yes | Yes (via `cssbeautifier`) | Yes |
+| HTML       | Yes     | Yes | No     | Yes         |
+
+## Runtimes
+
+**Node.js library** — Install `js-beautify` from npm and call `beautify.js()`, `beautify.css()`, or `beautify.html()` from your application code.
+
+**CLI** — Install `js-beautify` globally from npm to get the `js-beautify`, `css-beautify`, and `html-beautify` executables. Beautified output is written to `stdout` by default.
+
+**Python** — Install `jsbeautifier` from PyPI to beautify JavaScript from Python scripts or the command line. Install `cssbeautifier` to also handle CSS. HTML beautification is not available in the Python version.
+
+**Web browser** — Include the library from a CDN to expose `js_beautify`, `css_beautify`, and `html_beautify` as global functions in your web page.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install js-beautify via npm, pip, or CDN.
+  </Card>
+  <Card title="Quickstart" icon="bolt" href="/quickstart">
+    Beautify your first file in under a minute.
+  </Card>
+</CardGroup>

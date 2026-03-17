@@ -1,0 +1,127 @@
+---
+title: "Options"
+description: "All configuration options for JS Beautify with defaults and descriptions."
+---
+
+JS Beautify accepts options as CLI flags or as keys in a JavaScript/Python options object. CLI flag names use dashes (e.g. `--indent-size`) while the API uses underscores (e.g. `indent_size`). Both forms are accepted in a `.jsbeautifyrc` file.
+
+<Note>
+Not all options are exposed via the CLI. `eval_code` and `space_before_conditional` are only available through the API or a config file.
+</Note>
+
+## JavaScript and general options
+
+| Option | CLI flag | Default | Description |
+|---|---|---|---|
+| `indent_size` | `--indent-size`, `-s` | `4` | Number of spaces per indentation level. |
+| `indent_char` | `--indent-char`, `-c` | `" "` | Character used for indentation. |
+| `indent_with_tabs` | `--indent-with-tabs`, `-t` | `false` | Indent with tabs instead of spaces. Overrides `indent_size` and `indent_char`. |
+| `editorconfig` | `--editorconfig` | `false` | Use EditorConfig to set up options. See [EditorConfig](/configuration/editorconfig). |
+| `eol` | `--eol`, `-e` | `"\n"` | Character(s) to use as line terminators. Defaults to the first newline found in the file, or `\n`. |
+| `end_with_newline` | `--end-with-newline`, `-n` | `false` | Ensure the output ends with a newline. |
+| `indent_level` | `--indent-level`, `-l` | `0` | Initial indentation level. |
+| `preserve_newlines` | `--preserve-newlines`, `-p` | `true` | Preserve existing line breaks. Use `--no-preserve-newlines` to disable. |
+| `max_preserve_newlines` | `--max-preserve-newlines`, `-m` | `10` | Maximum number of consecutive line breaks to preserve in one chunk. |
+| `space_in_paren` | `--space-in-paren`, `-P` | `false` | Add padding spaces inside parentheses, e.g. `f( a, b )`. |
+| `space_in_empty_paren` | `--space-in-empty-paren`, `-E` | `false` | Add a single space inside empty parentheses, e.g. `f( )`. |
+| `jslint_happy` | `--jslint-happy`, `-j` | `false` | Enable jslint-stricter mode. |
+| `space_after_anon_function` | `--space-after-anon-function`, `-a` | `false` | Add a space before an anonymous function's parentheses, e.g. `function ()`. |
+| `space_after_named_function` | `--space-after-named-function` | `false` | Add a space before a named function's parentheses, e.g. `function example ()`. |
+| `brace_style` | `--brace-style`, `-b` | `"collapse"` | Brace style: `collapse`, `expand`, `end-expand`, or `none`. Optionally append `,preserve-inline`. |
+| `unindent_chained_methods` | `--unindent-chained-methods`, `-u` | `false` | Do not indent chained method calls. |
+| `break_chained_methods` | `--break-chained-methods`, `-B` | `false` | Break chained method calls across subsequent lines. |
+| `keep_array_indentation` | `--keep-array-indentation`, `-k` | `false` | Preserve array literal indentation. |
+| `unescape_strings` | `--unescape-strings`, `-x` | `false` | Decode printable characters encoded in `\xNN` notation. |
+| `wrap_line_length` | `--wrap-line-length`, `-w` | `0` | Wrap lines that exceed N characters. `0` disables wrapping. |
+| `e4x` | `--e4x`, `-X` | `false` | Pass E4X XML literals through untouched. |
+| `comma_first` | `--comma-first`, `-C` | `false` | Place commas at the beginning of a new line instead of the end. |
+| `operator_position` | `--operator-position`, `-O` | `"before-newline"` | Set operator position when breaking lines: `before-newline`, `after-newline`, or `preserve-newline`. |
+| `indent_empty_lines` | `--indent-empty-lines` | `false` | Keep indentation on otherwise empty lines. |
+| `templating` | `--templating` | `["auto"]` | Templating languages to recognize: `auto`, `none`, `angular`, `django`, `erb`, `handlebars`, `php`, `smarty`. `auto` means none in JavaScript, all in HTML. |
+| `eval_code` | *(not in CLI)* | `false` | Attempt to evaluate code that looks like a string containing JavaScript. |
+| `space_before_conditional` | *(not in CLI)* | `true` | Add a space before a conditional, e.g. `if (x)`. |
+
+## CSS beautifier options
+
+| Option | CLI flag | Default | Description |
+|---|---|---|---|
+| `indent_size` | `--indent-size`, `-s` | `4` | Number of spaces per indentation level. |
+| `indent_char` | `--indent-char`, `-c` | `" "` | Character used for indentation. |
+| `indent_with_tabs` | `--indent-with-tabs`, `-t` | `false` | Indent with tabs instead of spaces. |
+| `eol` | `--eol`, `-e` | `"\n"` | Line terminator character(s). |
+| `end_with_newline` | `--end-with-newline`, `-n` | `false` | Ensure the output ends with a newline. |
+| `brace_style` | `--brace-style`, `-b` | `"collapse"` | Brace style: `collapse` or `expand`. |
+| `selector_separator_newline` | `--selector-separator-newline`, `-L` | `true` | Add a newline between multiple selectors. |
+| `newline_between_rules` | `--newline-between-rules`, `-N` | `true` | Add a newline between CSS rules. |
+| `indent_empty_lines` | `--indent-empty-lines` | `false` | Keep indentation on empty lines. |
+
+## HTML beautifier options
+
+| Option | CLI flag | Default | Description |
+|---|---|---|---|
+| `indent_size` | `--indent-size`, `-s` | `4` | Number of spaces per indentation level. |
+| `indent_char` | `--indent-char`, `-c` | `" "` | Character used for indentation. |
+| `indent_with_tabs` | `--indent-with-tabs`, `-t` | `false` | Indent with tabs instead of spaces. |
+| `eol` | `--eol`, `-e` | `"\n"` | Line terminator character(s). |
+| `end_with_newline` | `--end-with-newline`, `-n` | `false` | Ensure the output ends with a newline. |
+| `preserve_newlines` | `--preserve-newlines`, `-p` | `true` | Preserve existing line breaks. |
+| `max_preserve_newlines` | `--max-preserve-newlines`, `-m` | `10` | Maximum consecutive line breaks to preserve. |
+| `indent_inner_html` | `--indent-inner-html`, `-I` | `false` | Indent `<head>` and `<body>` sections. |
+| `brace_style` | `--brace-style`, `-b` | `"collapse"` | Brace style: `collapse-preserve-inline`, `collapse`, `expand`, `end-expand`, or `none`. |
+| `indent_scripts` | `--indent-scripts`, `-S` | `"normal"` | Indent level inside script tags: `keep`, `separate`, or `normal`. |
+| `wrap_line_length` | `--wrap-line-length`, `-w` | `250` | Maximum characters per line. `0` disables. |
+| `wrap_attributes` | `--wrap-attributes`, `-A` | `"auto"` | Wrap attributes to new lines: `auto`, `force`, `force-aligned`, `force-expand-multiline`, `aligned-multiple`, `preserve`, or `preserve-aligned`. |
+| `wrap_attributes_min_attrs` | `--wrap-attributes-min-attrs`, `-M` | `2` | Minimum number of attributes before force-wrap kicks in. |
+| `wrap_attributes_indent_size` | `--wrap-attributes-indent-size`, `-i` | *(indent-size)* | Indent wrapped attributes to after N characters. Ignored when `wrap-attributes` is `"aligned"`. |
+| `inline` | `--inline`, `-d` | *(inline tags)* | List of tags to treat as inline elements. |
+| `inline_custom_elements` | `--inline_custom_elements` | `true` | Treat custom elements as inline. |
+| `unformatted` | `--unformatted`, `-U` | *(inline tags)* | List of tags that should not be reformatted. |
+| `content_unformatted` | `--content_unformatted`, `-T` | `["pre"]` | List of tags whose content should not be reformatted. |
+| `extra_liners` | `--extra_liners`, `-E` | `["head","body","/html"]` | Tags that should have an extra newline before them. |
+| `editorconfig` | `--editorconfig` | `false` | Use EditorConfig to set up options. |
+| `unformatted_content_delimiter` | `--unformatted_content_delimiter` | `""` | Keep text content together between this string. |
+| `indent_empty_lines` | `--indent-empty-lines` | `false` | Keep indentation on empty lines. |
+| `templating` | `--templating` | `["auto"]` | Templating languages to enable. `auto` enables all in HTML. |
+
+## Default values (JSON)
+
+The following is the full set of defaults used by the CLI:
+
+```json
+{
+    "indent_size": 4,
+    "indent_char": " ",
+    "indent_with_tabs": false,
+    "editorconfig": false,
+    "eol": "\n",
+    "end_with_newline": false,
+    "indent_level": 0,
+    "preserve_newlines": true,
+    "max_preserve_newlines": 10,
+    "space_in_paren": false,
+    "space_in_empty_paren": false,
+    "jslint_happy": false,
+    "space_after_anon_function": false,
+    "space_after_named_function": false,
+    "brace_style": "collapse",
+    "unindent_chained_methods": false,
+    "break_chained_methods": false,
+    "keep_array_indentation": false,
+    "unescape_strings": false,
+    "wrap_line_length": 0,
+    "e4x": false,
+    "comma_first": false,
+    "operator_position": "before-newline",
+    "indent_empty_lines": false,
+    "templating": ["auto"]
+}
+```
+
+Options not exposed in the CLI:
+
+```json
+{
+    "eval_code": false,
+    "space_before_conditional": true
+}
+```

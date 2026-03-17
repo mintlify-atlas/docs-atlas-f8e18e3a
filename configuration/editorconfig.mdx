@@ -1,0 +1,72 @@
+---
+title: "EditorConfig"
+description: "Let js-beautify read formatting rules from your .editorconfig file."
+---
+
+[EditorConfig](https://editorconfig.org/) is a standard for defining consistent editor settings across different editors and tools using a `.editorconfig` file at the root of a project. JS Beautify can read from this file so you have a single source of truth for indentation and line-ending rules.
+
+## Enabling EditorConfig support
+
+EditorConfig support is off by default. You can enable it in two ways:
+
+**CLI flag:**
+
+```bash
+js-beautify --editorconfig foo.js
+```
+
+**API option:**
+
+```js
+var beautify = require('js-beautify').js;
+var result = beautify(code, { editorconfig: true });
+```
+
+You can also set it in your `.jsbeautifyrc`:
+
+```json
+{
+    "editorconfig": true
+}
+```
+
+## Supported EditorConfig properties
+
+When EditorConfig support is enabled, js-beautify reads the following properties from your `.editorconfig` file:
+
+| EditorConfig property | Maps to js-beautify option | Notes |
+|---|---|---|
+| `indent_style` | `indent_char` / `indent_with_tabs` | `tab` sets `indent_with_tabs: true`; `space` sets `indent_char: " "` |
+| `indent_size` | `indent_size` | Number of spaces per indent level |
+| `end_of_line` | `eol` | `lf` → `\n`, `crlf` → `\r\n`, `cr` → `\r` |
+| `insert_final_newline` | `end_with_newline` | `true` enables a trailing newline |
+| `max_line_length` | `wrap_line_length` | Sets the line-wrap column |
+
+## Override behavior
+
+EditorConfig settings are applied first. Any js-beautify option that you set explicitly — via CLI flag, environment variable, `--config` file, or `.jsbeautifyrc` — will override the corresponding EditorConfig value.
+
+<Warning>
+If you set `indent_size` explicitly alongside `editorconfig: true`, your explicit value wins. This can lead to surprising results if team members expect EditorConfig to be authoritative.
+</Warning>
+
+## Sample .editorconfig file
+
+```ini
+# .editorconfig
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+
+[*.js]
+indent_size = 2
+
+[*.css]
+indent_size = 2
+```
+
+With the above file and `editorconfig: true`, js-beautify uses 2-space indentation for `.js` and `.css` files, and 4-space indentation for everything else, with Unix line endings and a trailing newline.

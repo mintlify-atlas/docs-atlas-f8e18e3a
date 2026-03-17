@@ -1,0 +1,198 @@
+---
+title: "JavaScript beautifier"
+description: "Format JavaScript, JSON, JSX, and TypeScript with js-beautify."
+---
+
+The JavaScript beautifier reformats and re-indents JavaScript source code. It handles ES6+ syntax, JSON, JSX, and TypeScript-compatible syntax. You can use it in a browser, from the command line, or as a Node.js library.
+
+## Unpacking and deobfuscation
+
+The beautifier automatically detects and unpacks scripts compressed by [Dean Edward's packer](http://dean.edwards.name/packer/). It also partially deobfuscates output from the [javascript-obfuscator](https://github.com/javascript-obfuscator/javascript-obfuscator) npm package, making minified or obfuscated code readable before you continue formatting it.
+
+## Brace style
+
+The `brace_style` option controls how curly braces are placed relative to their surrounding code. The default is `collapse`.
+
+<Tabs>
+  <Tab title="collapse">
+    Braces stay on the same line as the control structure (default).
+
+    ```js
+    if (foo) {
+        bar();
+    }
+    ```
+  </Tab>
+  <Tab title="expand">
+    Opening brace moves to its own line.
+
+    ```js
+    if (foo)
+    {
+        bar();
+    }
+    ```
+  </Tab>
+  <Tab title="end-expand">
+    Only the closing brace moves to its own line.
+
+    ```js
+    if (foo) {
+        bar();
+        }
+    ```
+  </Tab>
+  <Tab title="none">
+    Braces are not adjusted — existing placement is preserved.
+
+    ```js
+    if (foo) { bar(); }
+    ```
+  </Tab>
+</Tabs>
+
+You can append `,preserve-inline` to any brace style to keep single-line blocks on one line:
+
+```js
+// brace_style: "collapse,preserve-inline"
+if (foo) { bar(); }
+```
+
+## Operator positioning
+
+The `operator_position` option controls where binary operators are placed when a line breaks. Valid values are:
+
+- `before-newline` (default) — operator stays at the end of the line
+- `after-newline` — operator moves to the start of the next line
+- `preserve-newline` — existing placement is kept
+
+```js
+// before-newline (default)
+var res = a +
+    b;
+
+// after-newline
+var res = a
+    + b;
+```
+
+## Comma-first style
+
+Set `comma_first: true` to place commas at the beginning of each new line instead of the end:
+
+```js
+// comma_first: true
+var foo = {
+    a: 1
+  , b: 2
+  , c: 3
+};
+```
+
+## Chained method calls
+
+Two options control how chained method calls are formatted:
+
+- `break_chained_methods: true` — break each chained call onto its own line
+- `unindent_chained_methods: true` — do not indent chained calls
+
+```js
+// break_chained_methods: true
+foo
+    .bar()
+    .baz();
+```
+
+## Paren spacing
+
+- `space_in_paren: true` — adds padding spaces inside parentheses: `f( a, b )`
+- `space_in_empty_paren: true` — adds a single space inside empty parentheses: `f( )`
+
+## Templating
+
+The `templating` option controls which template language syntax is recognized inside JavaScript files. The default value is `["auto"]`, which means **no templating** is active in JavaScript mode. Setting `templating: ["auto"]` explicitly in a JS context disables all template language handling.
+
+<Note>
+  In HTML mode, `"auto"` expands to all supported template languages: Django, ERB, Handlebars, PHP, Smarty, and Angular. In JavaScript mode it means none.
+</Note>
+
+## Usage
+
+### Node.js library
+
+<CodeGroup>
+
+```js CommonJS
+const beautify = require('js-beautify');
+
+const result = beautify.js(code, { brace_style: 'expand', indent_size: 2 });
+console.log(result);
+```
+
+```js ESM
+import beautify from 'js-beautify';
+
+const result = beautify.js(code, { brace_style: 'expand', indent_size: 2 });
+console.log(result);
+```
+
+</CodeGroup>
+
+You can also require the JS beautifier directly:
+
+```js
+var beautify = require('js-beautify/js').js,
+    fs = require('fs');
+
+fs.readFile('foo.js', 'utf8', function (err, data) {
+    if (err) { throw err; }
+    console.log(beautify(data, { indent_size: 2, space_in_empty_paren: true }));
+});
+```
+
+### CLI
+
+```bash
+# Install globally
+npm -g install js-beautify
+
+# Beautify a file (output goes to stdout)
+js-beautify foo.js
+
+# Write output back to the file
+js-beautify --replace foo.js
+```
+
+### Python
+
+```python
+import jsbeautifier
+
+res = jsbeautifier.beautify('your JavaScript string')
+res = jsbeautifier.beautify_file('some_file.js')
+
+# With options
+opts = jsbeautifier.default_options()
+opts.indent_size = 2
+opts.space_in_empty_paren = True
+res = jsbeautifier.beautify('some JavaScript', opts)
+```
+
+## Key options reference
+
+| Option | Default | Description |
+|---|---|---|
+| `indent_size` | `4` | Number of spaces per indentation level |
+| `indent_char` | `" "` | Character used for indentation |
+| `indent_with_tabs` | `false` | Indent with tabs instead of spaces |
+| `brace_style` | `"collapse"` | Brace placement: `collapse`, `expand`, `end-expand`, `none` |
+| `operator_position` | `"before-newline"` | Where to place operators on line breaks |
+| `comma_first` | `false` | Place commas at the start of new lines |
+| `break_chained_methods` | `false` | Break chained method calls across lines |
+| `unindent_chained_methods` | `false` | Do not indent chained method calls |
+| `space_in_paren` | `false` | Pad spaces inside parentheses |
+| `space_in_empty_paren` | `false` | Add a space inside empty parentheses |
+| `preserve_newlines` | `true` | Preserve existing line breaks |
+| `max_preserve_newlines` | `10` | Maximum consecutive line breaks to preserve |
+| `wrap_line_length` | `0` | Wrap lines exceeding this length (0 disables) |
+| `templating` | `["auto"]` | Template languages to recognize (none in JS mode) |

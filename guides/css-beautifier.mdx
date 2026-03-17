@@ -1,0 +1,175 @@
+---
+title: "CSS beautifier"
+description: "Format CSS, SCSS, and Less with the css-beautify tool."
+---
+
+The CSS beautifier reformats CSS rules, selectors, and properties. It handles standard CSS as well as SCSS and Less syntax. You can use it from the command line, as a Node.js library, or via the Python package.
+
+## Formatting example
+
+<Tabs>
+  <Tab title="Before">
+    ```css
+    .foo,.bar{color:red;background:blue;}
+    .baz{margin:0;padding:0;}
+    ```
+  </Tab>
+  <Tab title="After">
+    ```css
+    .foo,
+    .bar {
+        color: red;
+        background: blue;
+    }
+
+    .baz {
+        margin: 0;
+        padding: 0;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Key options
+
+### Indentation
+
+- `indent_size` — number of spaces per indentation level (default: `4`)
+- `indent_char` — character used for indentation (default: `" "`)
+- `indent_with_tabs` — indent with tabs, overrides `indent_size` and `indent_char` (default: `false`)
+- `indent_empty_lines` — preserve indentation on empty lines (default: `false`)
+
+### Brace style
+
+The `brace_style` option has two values:
+
+- `collapse` (default) — opening brace stays on the same line as the selector
+- `expand` — opening brace moves to its own line
+
+```css
+/* collapse */
+.foo {
+    color: red;
+}
+
+/* expand */
+.foo
+{
+    color: red;
+}
+```
+
+### Selector formatting
+
+`selector_separator_newline: true` (default) adds a newline between multiple selectors:
+
+```css
+/* selector_separator_newline: true */
+.foo,
+.bar {
+    color: red;
+}
+
+/* selector_separator_newline: false */
+.foo, .bar {
+    color: red;
+}
+```
+
+### Rule spacing
+
+`newline_between_rules: true` (default) inserts an empty line between CSS rules:
+
+```css
+/* newline_between_rules: true */
+.foo {
+    color: red;
+}
+
+.bar {
+    color: blue;
+}
+
+/* newline_between_rules: false */
+.foo {
+    color: red;
+}
+.bar {
+    color: blue;
+}
+```
+
+### End of file
+
+`end_with_newline: true` ensures the output ends with a newline character (default: `false`).
+
+## Usage
+
+### Node.js library
+
+<CodeGroup>
+
+```js CommonJS
+const beautify = require('js-beautify');
+
+const result = beautify.css(code, { indent_size: 2, selector_separator_newline: true });
+console.log(result);
+```
+
+```js ESM
+import beautify from 'js-beautify';
+
+const result = beautify.css(code, { indent_size: 2, selector_separator_newline: true });
+console.log(result);
+```
+
+</CodeGroup>
+
+### CLI
+
+```bash
+# Install globally
+npm -g install js-beautify
+
+# Beautify a CSS file
+css-beautify [options] file.css
+
+# Equivalent using the main CLI with --css flag
+js-beautify --css file.css
+
+# Write output back to the file
+css-beautify --replace file.css
+```
+
+### Python
+
+```python
+import cssbeautifier
+
+res = cssbeautifier.beautify(src)
+res = cssbeautifier.beautify_file('some_file.css')
+
+# With options
+opts = cssbeautifier.default_options()
+opts.indent_size = 2
+res = cssbeautifier.beautify(src, opts)
+```
+
+<Note>
+  The Python `cssbeautifier` package is separate from `jsbeautifier`. Install it with `pip install cssbeautifier`.
+</Note>
+
+## Key options reference
+
+| Option | Default | Description |
+|---|---|---|
+| `indent_size` | `4` | Number of spaces per indentation level |
+| `indent_char` | `" "` | Character used for indentation |
+| `indent_with_tabs` | `false` | Indent with tabs instead of spaces |
+| `eol` | `"\n"` | Line terminator character(s) |
+| `end_with_newline` | `false` | End output with a newline |
+| `brace_style` | `"collapse"` | Brace placement: `collapse` or `expand` |
+| `selector_separator_newline` | `true` | Add newline between multiple selectors |
+| `newline_between_rules` | `true` | Add empty line between CSS rules |
+| `space_around_combinator` | `false` | Add spaces around selector combinators |
+| `indent_empty_lines` | `false` | Keep indentation on empty lines |

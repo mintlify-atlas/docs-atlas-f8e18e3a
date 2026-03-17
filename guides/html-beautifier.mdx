@@ -1,0 +1,210 @@
+---
+title: "HTML beautifier"
+description: "Format HTML with control over attributes, indentation, and embedded JS/CSS."
+---
+
+The HTML beautifier reformats HTML source code, giving you control over attribute wrapping, indentation of embedded scripts and styles, and which elements remain untouched. Embedded JavaScript and CSS are formatted using their respective beautifiers.
+
+## Formatting example
+
+<Tabs>
+  <Tab title="Before">
+    ```html
+    <div id="foo" class="bar" data-value="baz" aria-label="example"><p>Hello</p></div>
+    ```
+  </Tab>
+  <Tab title="After (wrap_attributes: force-expand-multiline)">
+    ```html
+    <div
+        id="foo"
+        class="bar"
+        data-value="baz"
+        aria-label="example"
+    >
+        <p>Hello</p>
+    </div>
+    ```
+  </Tab>
+</Tabs>
+
+## Indentation
+
+### Inner HTML indentation
+
+`indent_inner_html: true` indents the contents of `<head>` and `<body>` (default: `false`).
+
+You can also control these independently:
+- `indent_head_inner_html` (default: `true`)
+- `indent_body_inner_html` (default: `true`)
+
+### Script indentation
+
+`indent_scripts` controls how code inside `<script>` tags is indented:
+
+- `normal` (default) — code is indented one level relative to the script tag
+- `keep` — indentation is kept as-is
+- `separate` — code is not indented at all (flush to the left margin)
+
+## Line wrapping
+
+`wrap_line_length` sets the maximum number of characters per line before wrapping. The default is `250`. Set to `0` to disable wrapping.
+
+## Attribute wrapping
+
+The `wrap_attributes` option controls how element attributes are arranged when a tag has multiple attributes:
+
+| Value | Description |
+|---|---|
+| `auto` (default) | Wrap only if the line exceeds `wrap_line_length` |
+| `force` | Wrap each attribute onto its own line if there are `wrap_attributes_min_attrs` or more attributes |
+| `force-aligned` | Wrap and align all attributes with the first attribute |
+| `force-expand-multiline` | Always wrap each attribute onto its own line |
+| `aligned-multiple` | Wrap multiple attributes per line, aligned |
+| `preserve` | Keep existing attribute formatting |
+| `preserve-aligned` | Keep existing formatting, but align attributes |
+
+`wrap_attributes_min_attrs` sets the minimum number of attributes required before `force` wrapping is triggered (default: `2`).
+
+`wrap_attributes_indent_size` controls the indentation of wrapped attributes (default: matches `indent_size`).
+
+<Tip>
+  Use `force-expand-multiline` for the cleanest diffs in version control, since each attribute is on its own line.
+</Tip>
+
+## Controlling which elements are reformatted
+
+### Unformatted elements
+
+`unformatted` is a list of tags that should not be reformatted. By default this is empty (`[]`), but you can add inline elements like `span` or `a` if you want to preserve their existing formatting.
+
+### Content-unformatted elements
+
+`content_unformatted` is a list of tags whose content is left exactly as written, without any reformatting. Defaults to `["pre", "textarea"]`.
+
+```js
+beautify.html(code, {
+    content_unformatted: ['pre', 'textarea', 'script']
+});
+```
+
+### Custom elements
+
+`inline_custom_elements: true` (default) treats custom elements (e.g., `<my-widget>`) as inline elements. Set to `false` to treat them as block elements.
+
+## Extra newlines before tags
+
+`extra_liners` is a list of tags that get an extra blank line inserted before them. Defaults to `["head", "body", "/html"]`:
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    ...
+</head>
+
+<body>
+    ...
+</body>
+
+</html>
+```
+
+Set `extra_liners: []` to remove these extra blank lines.
+
+## Templating support
+
+The `templating` option controls which template syntaxes are recognized and preserved inside HTML files. In HTML mode, `"auto"` (the default) expands to all supported languages:
+
+- `django` — `{% %}` and `{{ }}`
+- `erb` — `<% %>` and `<%= %>`
+- `handlebars` — `{{ }}` and `{{# }}`
+- `php` — `<?php ?>`
+- `smarty` — `{* *}` and `{ }`
+- `angular` — `{{ }}`
+
+<Note>
+  Setting `templating: ["auto"]` in HTML context enables all of the above. To disable template handling entirely, set `templating: ["none"]`.
+</Note>
+
+## Embedded JS and CSS
+
+Code inside `<script>` and `<style>` tags is formatted using the JavaScript and CSS beautifiers respectively. You can pass language-specific options using the settings inheritance structure:
+
+```json
+{
+    "indent_size": 4,
+    "html": {
+        "js": {
+            "indent_size": 2
+        },
+        "css": {
+            "indent_size": 2
+        }
+    }
+}
+```
+
+## Usage
+
+### Node.js library
+
+<CodeGroup>
+
+```js CommonJS
+const beautify = require('js-beautify');
+
+const result = beautify.html(code, {
+    indent_size: 2,
+    wrap_attributes: 'force-expand-multiline',
+    indent_inner_html: true
+});
+console.log(result);
+```
+
+```js ESM
+import beautify from 'js-beautify';
+
+const result = beautify.html(code, {
+    indent_size: 2,
+    wrap_attributes: 'force-expand-multiline',
+    indent_inner_html: true
+});
+console.log(result);
+```
+
+</CodeGroup>
+
+### CLI
+
+```bash
+# Install globally
+npm -g install js-beautify
+
+# Beautify an HTML file
+html-beautify [options] file.html
+
+# Equivalent using the main CLI
+js-beautify --html file.html
+
+# Write output back to the file
+html-beautify --replace file.html
+```
+
+## Key options reference
+
+| Option | Default | Description |
+|---|---|---|
+| `indent_size` | `4` | Number of spaces per indentation level |
+| `indent_with_tabs` | `false` | Indent with tabs instead of spaces |
+| `indent_inner_html` | `false` | Indent `<head>` and `<body>` contents |
+| `wrap_line_length` | `250` | Max characters per line before wrapping |
+| `wrap_attributes` | `"auto"` | Attribute wrapping strategy |
+| `wrap_attributes_min_attrs` | `2` | Minimum attributes to trigger force wrapping |
+| `indent_scripts` | `"normal"` | How to indent content inside `<script>` tags |
+| `unformatted` | `[]` | Tags whose markup is not reformatted |
+| `content_unformatted` | `["pre","textarea"]` | Tags whose content is not reformatted |
+| `extra_liners` | `["head","body","/html"]` | Tags that get an extra blank line before them |
+| `inline_custom_elements` | `true` | Treat custom elements as inline |
+| `end_with_newline` | `false` | End output with a newline |
+| `templating` | `["auto"]` | Template languages to recognize (all in HTML mode) |

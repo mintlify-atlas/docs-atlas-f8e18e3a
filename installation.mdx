@@ -1,0 +1,77 @@
+---
+title: "Installation"
+description: "Install js-beautify via npm, pip, or CDN."
+---
+
+## Node.js
+
+<Tabs>
+  <Tab title="Global CLI">
+    Install `js-beautify` globally to get the `js-beautify`, `css-beautify`, and `html-beautify` executables available on your `PATH`.
+
+    ```bash
+    npm install -g js-beautify
+    ```
+
+    <Tip>The beautified result is sent to `stdout` unless you use `--replace` (`-r`) to overwrite the file in place, or `--outfile` (`-o`) to write to a specific file.</Tip>
+  </Tab>
+  <Tab title="Local library">
+    Install `js-beautify` as a project dependency to use it programmatically in your Node.js application.
+
+    ```bash
+    npm install js-beautify
+    ```
+  </Tab>
+  <Tab title="Beta / next">
+    To install the latest beta or release-candidate version:
+
+    ```bash
+    npm install js-beautify@next
+    ```
+
+    <Warning>Beta releases may contain breaking changes. Pin to a stable version for production use.</Warning>
+  </Tab>
+</Tabs>
+
+<Note>js-beautify requires Node.js 14 or higher.</Note>
+
+## Python
+
+<Tabs>
+  <Tab title="JavaScript (jsbeautifier)">
+    ```bash
+    pip install jsbeautifier
+    ```
+
+    This installs the `js-beautify` CLI command and the `jsbeautifier` Python package for reformatting JavaScript.
+
+    <Warning>The Python version only supports JavaScript. It does not beautify HTML files.</Warning>
+  </Tab>
+  <Tab title="CSS (cssbeautifier)">
+    ```bash
+    pip install cssbeautifier
+    ```
+
+    Install `cssbeautifier` separately to add CSS beautification support in Python.
+  </Tab>
+</Tabs>
+
+## Web browser (CDN)
+
+Load js-beautify directly in a web page using script tags from cdnjs. Include only the files you need.
+
+```html
+<!-- Unminified -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-html.js"></script>
+
+<!-- Minified -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-html.min.js"></script>
+```
+
+After loading the scripts, three globals are available: `js_beautify`, `css_beautify`, and `html_beautify`.
+
+<Note>These are free CDN services with no uptime or support guarantees. For production use, consider bundling the library with your application instead.</Note>

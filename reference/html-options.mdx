@@ -1,0 +1,189 @@
+---
+title: "HTML options"
+description: "Complete reference for all HTML beautifier options."
+---
+
+## Indentation
+
+<ParamField path="indent_size" type="number">
+  Number of spaces per indentation level. Default: `4`
+</ParamField>
+
+<ParamField path="indent_char" type="string">
+  Character used for indentation. Default: `" "` (a single space)
+</ParamField>
+
+<ParamField path="indent_with_tabs" type="boolean">
+  Use tabs instead of spaces for indentation. Overrides `indent_size` and `indent_char` when set to `true`. Default: `false`
+</ParamField>
+
+<ParamField path="indent_inner_html" type="boolean">
+  Indent the contents of `<head>` and `<body>` elements. Default: `false`
+
+  ```html
+  <!-- indent_inner_html: true -->
+  <html>
+    <head>
+      <title>Example</title>
+    </head>
+    <body>
+      <p>Hello</p>
+    </body>
+  </html>
+  ```
+</ParamField>
+
+<ParamField path="indent_scripts" type="string">
+  Controls the indentation level of content inside `<script>` tags. Accepted values:
+
+  - `"normal"` — Indent script content relative to the `<script>` tag's indentation level (default)
+  - `"keep"` — Keep existing indentation of script content
+  - `"separate"` — Reset indentation of script content to the top level
+
+  Default: `"normal"`
+</ParamField>
+
+## Line endings
+
+<ParamField path="eol" type="string">
+  End-of-line character(s) to use. Defaults to the first newline found in the input file, or `"\n"` if none is found. Accepts `"\n"`, `"\r\n"`, or `"\r"`. Default: `"\n"`
+</ParamField>
+
+<ParamField path="end_with_newline" type="boolean">
+  Ensure the output ends with a newline character. Default: `false`
+</ParamField>
+
+<ParamField path="indent_empty_lines" type="boolean">
+  Preserve indentation on otherwise empty lines. Default: `false`
+</ParamField>
+
+## Newlines
+
+<ParamField path="preserve_newlines" type="boolean">
+  Preserve existing line-breaks in the source. When set to `false`, all line-break collapsing is disabled. Default: `true`
+</ParamField>
+
+<ParamField path="max_preserve_newlines" type="number">
+  Maximum number of consecutive blank lines to preserve. Only applies when `preserve_newlines` is `true`. Default: `10`
+</ParamField>
+
+## Wrapping
+
+<ParamField path="wrap_line_length" type="number">
+  Wrap lines that exceed this many characters. Set to `0` to disable line wrapping. Default: `250`
+
+  <Note>The HTML beautifier default is `250`, unlike the JavaScript beautifier where it defaults to `0` (disabled).</Note>
+</ParamField>
+
+<ParamField path="wrap_attributes" type="string">
+  Controls how and when HTML tag attributes are wrapped to new lines. Accepted values:
+
+  - `"auto"` — Only wrap when attributes cause the line to exceed `wrap_line_length` (default)
+  - `"force"` — Wrap each attribute onto its own line (except the first)
+  - `"force-aligned"` — Wrap and align each attribute to the first attribute's column
+  - `"force-expand-multiline"` — Wrap every attribute and place the closing `>` on its own line
+  - `"aligned-multiple"` — Wrap when exceeding `wrap_line_length`, aligning attributes
+  - `"preserve"` — Preserve existing attribute wrapping
+  - `"preserve-aligned"` — Preserve existing wrapping, but align wrapped attributes
+
+  Default: `"auto"`
+</ParamField>
+
+<ParamField path="wrap_attributes_min_attrs" type="number">
+  Minimum number of attributes that must be present before forced wrapping (used by `force` and similar modes) takes effect. Default: `2`
+</ParamField>
+
+<ParamField path="wrap_attributes_indent_size" type="number">
+  Number of spaces to indent wrapped attributes. Defaults to the value of `indent_size`. Ignored when `wrap_attributes` is set to an `"aligned"` mode. Default: `indent_size`
+</ParamField>
+
+## Tags
+
+<ParamField path="inline" type="array">
+  List of tag names to treat as inline elements. These tags will not cause line-breaks to be added around them. Defaults to the standard set of HTML inline elements, including `a`, `abbr`, `b`, `br`, `button`, `code`, `em`, `i`, `img`, `input`, `label`, `select`, `small`, `span`, `strong`, `textarea`, and others.
+</ParamField>
+
+<ParamField path="inline_custom_elements" type="boolean">
+  Treat custom elements (tags containing a hyphen, such as `<my-component>`) as inline elements. Default: `true`
+</ParamField>
+
+<ParamField path="unformatted" type="array">
+  List of tag names whose opening and closing tags, as well as the content between them, will not be reformatted. Defaults to the same list as `inline`.
+</ParamField>
+
+<ParamField path="content_unformatted" type="array">
+  List of tag names whose inner content will not be reformatted, even though the tags themselves are. Default: `["pre", "textarea"]`
+
+  ```html
+  <!-- The content inside <pre> is left exactly as-is -->
+  <pre>
+    indented  content
+       preserved
+  </pre>
+  ```
+</ParamField>
+
+<ParamField path="extra_liners" type="array">
+  List of tag names that will have an extra blank line inserted before them. Default: `["head", "body", "/html"]`
+
+  ```html
+  <html>
+
+  <head>
+    ...
+  </head>
+
+  <body>
+    ...
+  </body>
+
+  </html>
+  ```
+</ParamField>
+
+<ParamField path="unformatted_content_delimiter" type="string">
+  When set, text content found between two occurrences of this string is kept together without reformatting. Default: `""`
+</ParamField>
+
+## Brace style
+
+<ParamField path="brace_style" type="string">
+  Controls brace formatting for inline scripts and styles within the HTML file. Accepted values:
+
+  - `"collapse"` — Opening brace on same line as control statement (default)
+  - `"collapse-preserve-inline"` — Collapse style, but preserve inline blocks
+  - `"expand"` — Each brace on its own line
+  - `"end-expand"` — Only closing brace on its own line
+  - `"none"` — Attempt to maintain existing brace style
+
+  Default: `"collapse"`
+</ParamField>
+
+## Config
+
+<ParamField path="editorconfig" type="boolean">
+  Read settings from an `.editorconfig` file found at or above the current working directory. Values from `.editorconfig` take lower precedence than explicit options you pass. Default: `false`
+</ParamField>
+
+## Templating
+
+<ParamField path="templating" type="array">
+  List of templating languages whose syntax should be preserved during beautification. In HTML, `"auto"` resolves to all supported templating languages except `angular`. Accepted values:
+
+  - `"auto"` — All templating languages enabled in HTML (default)
+  - `"none"` — No templating language support
+  - `"django"`
+  - `"erb"`
+  - `"handlebars"`
+  - `"php"`
+  - `"smarty"`
+  - `"angular"`
+
+  Default: `["auto"]`
+
+  Pass multiple values as a comma-separated string on the CLI:
+
+  ```bash
+  html-beautify --templating django,erb file.html
+  ```
+</ParamField>

@@ -1,0 +1,76 @@
+---
+title: "Web browser"
+description: "Embed js-beautify in your web page using CDN script tags."
+---
+
+## Loading from CDN
+
+JS Beautifier is hosted on [cdnjs](https://cdnjs.com/libraries/js-beautify). Include one or more of the following `<script>` tags in your HTML document depending on which beautifiers you need:
+
+```html
+<!-- Full versions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-html.js"></script>
+
+<!-- Minified versions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-html.min.js"></script>
+```
+
+Older versions are available by changing the version number in the URL.
+
+<Warning>
+CDN services are provided for free with no uptime or support guarantees.
+</Warning>
+
+## Global functions
+
+Each script tag exposes a global function:
+
+| Script | Global function |
+|---|---|
+| `beautify.js` / `beautify.min.js` | `js_beautify` |
+| `beautify-css.js` / `beautify-css.min.js` | `css_beautify` |
+| `beautify-html.js` / `beautify-html.min.js` | `html_beautify` |
+
+## Complete HTML example
+
+The following example loads the minified JS beautifier and calls it from a script:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+
+    <!-- your page content -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+## JSON beautification example
+
+After loading the `beautify.js` script, you can use `js_beautify` to format JSON strings:
+
+```js
+const options = { indent_size: 2, space_in_empty_paren: true }
+
+const dataObj = {completed: false,id: 1,title: "delectus aut autem",userId: 1,}
+
+const dataJson = JSON.stringify(dataObj)
+
+js_beautify(dataJson, options)
+
+/* OUTPUT
+{
+  "completed": false,
+  "id": 1,
+  "title": "delectus aut autem",
+  "userId": 1,
+}
+*/
+```

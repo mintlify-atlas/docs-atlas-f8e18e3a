@@ -1,0 +1,236 @@
+---
+title: "JavaScript options"
+description: "Complete reference for all JavaScript beautifier options."
+---
+
+## Indentation
+
+<ParamField path="indent_size" type="number">
+  Number of spaces per indentation level. Default: `4`
+</ParamField>
+
+<ParamField path="indent_char" type="string">
+  Character used for indentation. Default: `" "` (a single space)
+</ParamField>
+
+<ParamField path="indent_with_tabs" type="boolean">
+  Use tabs instead of spaces for indentation. Overrides `indent_size` and `indent_char` when set to `true`. Default: `false`
+</ParamField>
+
+<ParamField path="indent_level" type="number">
+  Initial indentation level applied to all output lines. Default: `0`
+</ParamField>
+
+## Line endings
+
+<ParamField path="eol" type="string">
+  End-of-line character(s) to use. Defaults to the first newline found in the input file, or `"\n"` if none is found. Accepts `"\n"`, `"\r\n"`, or `"\r"`. Default: `"\n"`
+</ParamField>
+
+<ParamField path="end_with_newline" type="boolean">
+  Ensure the output ends with a newline character. Default: `false`
+</ParamField>
+
+<ParamField path="indent_empty_lines" type="boolean">
+  Preserve indentation on otherwise empty lines. Default: `false`
+</ParamField>
+
+## Newlines
+
+<ParamField path="preserve_newlines" type="boolean">
+  Preserve existing line-breaks in the source. When set to `false`, all line-break collapsing is disabled. Default: `true`
+</ParamField>
+
+<ParamField path="max_preserve_newlines" type="number">
+  Maximum number of consecutive blank lines to preserve. Only applies when `preserve_newlines` is `true`. Default: `10`
+</ParamField>
+
+## Spacing
+
+<ParamField path="space_in_paren" type="boolean">
+  Add padding spaces inside parentheses. For example, `f( a, b )` instead of `f(a, b)`. Default: `false`
+</ParamField>
+
+<ParamField path="space_in_empty_paren" type="boolean">
+  Add a single space inside empty parentheses. For example, `f( )` instead of `f()`. Default: `false`
+</ParamField>
+
+<ParamField path="space_after_anon_function" type="boolean">
+  Add a space before anonymous function parentheses. For example, `function ()` instead of `function()`. Default: `false`
+
+  <Note>This option is automatically set to `true` when `jslint_happy` is enabled.</Note>
+</ParamField>
+
+<ParamField path="space_after_named_function" type="boolean">
+  Add a space before named function parentheses. For example, `function example ()` instead of `function example()`. Default: `false`
+</ParamField>
+
+<ParamField path="space_before_conditional" type="boolean">
+  Add a space before conditional keywords such as `if`, `for`, and `while`. Default: `true`
+
+  <Note>This option is not exposed in the CLI and is only available via the API.</Note>
+</ParamField>
+
+## Brace style
+
+<ParamField path="brace_style" type="string">
+  Controls placement of braces. Accepted values:
+
+  - `"collapse"` — Opening and closing braces on the same line as control statements (default)
+  - `"expand"` — Each brace on its own line
+  - `"end-expand"` — Only the closing brace goes on its own line
+  - `"none"` — Attempt to maintain the existing brace style
+
+  You can optionally append `,preserve-inline` to any value to preserve inline blocks as-is. For example, `"collapse,preserve-inline"`.
+
+  Default: `"collapse"`
+
+  ```js
+  // collapse
+  if (x) {
+    foo();
+  } else {
+    bar();
+  }
+
+  // expand
+  if (x)
+  {
+    foo();
+  }
+  else
+  {
+    bar();
+  }
+
+  // end-expand
+  if (x) {
+    foo();
+  }
+  else {
+    bar();
+  }
+  ```
+</ParamField>
+
+## Operators
+
+<ParamField path="operator_position" type="string">
+  Controls where an operator is placed when a binary expression is split across lines. Accepted values:
+
+  - `"before-newline"` — Operator stays at the end of the line before the break (default)
+  - `"after-newline"` — Operator moves to the beginning of the next line
+  - `"preserve-newline"` — Maintain the existing operator position
+
+  Default: `"before-newline"`
+
+  ```js
+  // before-newline
+  var res = a +
+    b;
+
+  // after-newline
+  var res = a
+    + b;
+  ```
+</ParamField>
+
+<ParamField path="comma_first" type="boolean">
+  Place commas at the beginning of each new line instead of at the end of the previous line. Default: `false`
+
+  ```js
+  // comma_first: true
+  var a
+    , b
+    , c;
+  ```
+</ParamField>
+
+## Chaining
+
+<ParamField path="unindent_chained_methods" type="boolean">
+  Do not increase the indentation level for chained method calls. Default: `false`
+</ParamField>
+
+<ParamField path="break_chained_methods" type="boolean">
+  Break chained method calls across separate lines. Default: `false`
+
+  ```js
+  // break_chained_methods: true
+  foo
+    .bar()
+    .baz();
+  ```
+</ParamField>
+
+## Arrays
+
+<ParamField path="keep_array_indentation" type="boolean">
+  Preserve the original indentation of array elements rather than re-indenting them. Default: `false`
+</ParamField>
+
+## Strings
+
+<ParamField path="unescape_strings" type="boolean">
+  Decode printable characters that are encoded using `\xNN` hexadecimal notation into their literal equivalents. Default: `false`
+
+  ```js
+  // unescape_strings: true
+  // "\x41" becomes "A"
+  var s = "A";
+  ```
+</ParamField>
+
+## Wrapping
+
+<ParamField path="wrap_line_length" type="number">
+  Wrap lines that exceed this many characters. Set to `0` to disable line wrapping. Default: `0`
+</ParamField>
+
+## Special
+
+<ParamField path="e4x" type="boolean">
+  Pass E4X XML literals through the beautifier completely untouched, without reformatting them. Default: `false`
+</ParamField>
+
+<ParamField path="eval_code" type="boolean">
+  Attempt to beautify code inside `eval()` calls. Default: `false`
+
+  <Note>This option is not exposed in the CLI and is only available via the API.</Note>
+</ParamField>
+
+<ParamField path="jslint_happy" type="boolean">
+  Enable jslint-stricter mode. When set to `true`, this automatically enables `space_after_anon_function`. Default: `false`
+</ParamField>
+
+<ParamField path="good_stuff" type="boolean">
+  Warm the cockles of Crockford's heart. Functions as an alias for jslint-happy-like behavior. Default: `false`
+</ParamField>
+
+## Config
+
+<ParamField path="editorconfig" type="boolean">
+  Read settings from an `.editorconfig` file found at or above the current working directory. Values from `.editorconfig` take lower precedence than explicit options you pass. Default: `false`
+</ParamField>
+
+## Templating
+
+<ParamField path="templating" type="array">
+  List of templating languages whose syntax should be preserved during beautification. In JavaScript, `"auto"` resolves to no templating languages (none are enabled). Accepted values:
+
+  - `"auto"` — No templating in JavaScript (default)
+  - `"django"`
+  - `"erb"`
+  - `"handlebars"`
+  - `"php"`
+  - `"smarty"`
+  - `"angular"`
+
+  Default: `["auto"]`
+
+  Pass multiple values as a comma-separated string on the CLI:
+
+  ```bash
+  js-beautify --templating django,erb file.js
+  ```
+</ParamField>

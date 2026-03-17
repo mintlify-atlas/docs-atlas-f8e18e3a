@@ -1,0 +1,85 @@
+---
+title: "Python library"
+description: "Use jsbeautifier and cssbeautifier in Python projects."
+---
+
+## Installation
+
+Install the Python package for JavaScript beautification:
+
+```bash
+pip install jsbeautifier
+```
+
+For CSS beautification, install the separate `cssbeautifier` package:
+
+```bash
+pip install cssbeautifier
+```
+
+<Warning>
+The Python `jsbeautifier` package only reformats JavaScript. It does not support HTML or CSS files. Use `cssbeautifier` for CSS. There is no Python HTML beautifier.
+</Warning>
+
+## Basic usage
+
+### Beautify a string
+
+```python
+import jsbeautifier
+res = jsbeautifier.beautify('your JavaScript string')
+```
+
+### Beautify a file
+
+```python
+import jsbeautifier
+res = jsbeautifier.beautify_file('some_file.js')
+```
+
+## Passing options
+
+Use `jsbeautifier.default_options()` to get an options object, then set attributes on it before passing it to `beautify`:
+
+```python
+import jsbeautifier
+
+opts = jsbeautifier.default_options()
+opts.indent_size = 2
+opts.space_in_empty_paren = True
+res = jsbeautifier.beautify('some JavaScript', opts)
+```
+
+<Note>
+The configuration option names are the same as the CLI flag names but with underscores instead of dashes. For example, `--indent-size 2 --space-in-empty-paren` on the command line becomes `opts.indent_size = 2` and `opts.space_in_empty_paren = True` in Python.
+</Note>
+
+## CSS beautification
+
+Use the `cssbeautifier` module for CSS:
+
+```python
+import cssbeautifier
+
+res = cssbeautifier.beautify('a{color:red}')
+```
+
+You can also pass options:
+
+```python
+import cssbeautifier
+
+opts = cssbeautifier.default_options()
+opts.indent_size = 2
+res = cssbeautifier.beautify('a{color:red}', opts)
+```
+
+## CLI usage after pip install
+
+After installing `jsbeautifier` via pip, a `js-beautify` command is available on your `PATH`:
+
+```bash
+js-beautify file.js
+```
+
+Beautified output goes to `stdout` by default.

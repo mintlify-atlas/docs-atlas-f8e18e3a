@@ -1,0 +1,98 @@
+---
+title: "CSS options"
+description: "Complete reference for all CSS beautifier options."
+---
+
+## Indentation
+
+<ParamField path="indent_size" type="number">
+  Number of spaces per indentation level. Default: `4`
+</ParamField>
+
+<ParamField path="indent_char" type="string">
+  Character used for indentation. Default: `" "` (a single space)
+</ParamField>
+
+<ParamField path="indent_with_tabs" type="boolean">
+  Use tabs instead of spaces for indentation. Overrides `indent_size` and `indent_char` when set to `true`. Default: `false`
+</ParamField>
+
+## Line endings
+
+<ParamField path="eol" type="string">
+  End-of-line character(s) to use. Defaults to the first newline found in the input file, or `"\n"` if none is found. Accepts `"\n"`, `"\r\n"`, or `"\r"`. Default: `"\n"`
+</ParamField>
+
+<ParamField path="end_with_newline" type="boolean">
+  Ensure the output ends with a newline character. Default: `false`
+</ParamField>
+
+<ParamField path="indent_empty_lines" type="boolean">
+  Preserve indentation on otherwise empty lines. Default: `false`
+</ParamField>
+
+## Brace style
+
+<ParamField path="brace_style" type="string">
+  Controls placement of braces in rule blocks. Accepted values:
+
+  - `"collapse"` — Opening brace on the same line as the selector (default)
+  - `"expand"` — Opening brace on its own line
+
+  Default: `"collapse"`
+
+  ```css
+  /* collapse */
+  .foo {
+    color: red;
+  }
+
+  /* expand */
+  .foo
+  {
+    color: red;
+  }
+  ```
+</ParamField>
+
+## Selectors and rules
+
+<ParamField path="selector_separator_newline" type="boolean">
+  Add a newline between multiple selectors in a selector group. Default: `true`
+
+  ```css
+  /* selector_separator_newline: true */
+  .foo,
+  .bar {
+    color: red;
+  }
+
+  /* selector_separator_newline: false */
+  .foo, .bar {
+    color: red;
+  }
+  ```
+</ParamField>
+
+<ParamField path="newline_between_rules" type="boolean">
+  Add an empty line between CSS rule blocks. Default: `true`
+
+  ```css
+  /* newline_between_rules: true */
+  .foo {
+    color: red;
+  }
+
+  .bar {
+    color: blue;
+  }
+
+  /* newline_between_rules: false */
+  .foo {
+    color: red;
+  }
+  .bar {
+    color: blue;
+  }
+  ```
+</ParamField>
